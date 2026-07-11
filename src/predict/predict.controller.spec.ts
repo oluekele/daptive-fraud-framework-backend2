@@ -19,7 +19,11 @@ describe('PredictController', () => {
 
     const result = await controller.predict(req, { sessionId: 'session-123' });
 
-    expect(riskService.predictSession).toHaveBeenCalledWith('user-1', 'session-123', undefined);
+    expect(riskService.predictSession).toHaveBeenCalledWith(
+      'user-1',
+      'session-123',
+      undefined,
+    );
     expect(result).toEqual({
       sessionId: 'session-123',
       modelName: 'ml-service',
