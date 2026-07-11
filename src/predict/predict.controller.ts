@@ -10,7 +10,6 @@
 //   sessionId?: string;
 // }
 
-
 // @ApiTags('predict')
 // @Controller('predict')
 // @UseGuards(JwtAuthGuard)
@@ -20,7 +19,6 @@
 //     private readonly riskService: RiskService,
 //     private readonly mlPrediction: MlPredictionService,
 //   ) { }
-
 
 //   @Post()
 //   @ApiOperation({ summary: 'Generate a prediction for the active or supplied session' })
@@ -69,13 +67,7 @@
 //   }
 // }
 
-
-import {
-  Controller,
-  Post,
-  Req,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Post, Req, UseGuards } from '@nestjs/common';
 
 import {
   ApiBearerAuth,
@@ -94,9 +86,7 @@ import { MlPredictionService } from './ml-prediction.service';
 @UseGuards(JwtAuthGuard)
 @ApiBearerAuth()
 export class PredictController {
-  constructor(
-    private readonly mlPredictionService: MlPredictionService,
-  ) { }
+  constructor(private readonly mlPredictionService: MlPredictionService) {}
 
   @Post('ml')
   @ApiOperation({
@@ -105,9 +95,7 @@ export class PredictController {
   @ApiOkResponse({
     description: 'Prediction returned',
   })
-  async predictMl(
-    @Req() req: AuthenticatedRequest,
-  ) {
+  async predictMl(@Req() req: AuthenticatedRequest) {
     return this.mlPredictionService.predictForSession(
       req.user!.userId,
       req.user!.sessionId,
